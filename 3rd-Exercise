@@ -1,12 +1,36 @@
+float xRed = 62, xGreen = 20, xBlue = 173;
+float yRed = 207, yGreen = 1, yBlue = 106;
+ 
+boolean backwards=false;
+int timeLapse=2000;
+int timeTrack;
+ 
+ 
 void setup() {
-  size(480, 120);
+  size(500, 500);
+  timeTrack=millis()+timeLapse;
+  background(0);
+}
+ 
+void draw() {
+ 
+ ellipse(mouseX, mouseY, 70, 70);
+ stroke(255);
+ fill(55);
+
+  //Next inverts diretion  
+  if (millis()>timeTrack) {
+    timeTrack=millis()+timeLapse;
+    backwards=!backwards;
+  }
+ 
+  float per = (timeTrack-millis())/float(timeLapse);  
+  if (backwards==true){  per = 1-per;}
+  surface.setTitle(nf(per*100, 3, 2)+"% Flag="+backwards);
+  fill(lerpColor(color(xRed, xGreen, xBlue), color(yRed, yGreen, yBlue), per));
+  
 }
 
-void draw() {
-  if (mousePressed) {
-    fill(0);
-  } else {
-    fill(255);
-  }
-  ellipse(mouseX, mouseY, 80, 80);
-}
+
+
+
